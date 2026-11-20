@@ -7,21 +7,44 @@ string unitName = "GEN-101";
 
 string site = "North Yard";
 
-double temperature = 187.5;
+double coolantTemp = 187.5;
 
-int pressure = 96;
+int oilPressure = 96;
 
-bool isRunning = true;
+double powerKw = 1450;
 
-Console.WriteLine($"=== {AppName} ===\n{unitName} @ {site}\nTemp: {temperature:F1} °F | Pressure: {pressure} psi | Running: {isRunning}" );
+int ratedKw = 2000;
 
+bool isRunning = powerKw >= 100;
+
+string health;
+
+if (!isRunning)
+{
+    health = "Offline";
+}
+else if (coolantTemp > 220)
+{
+    health = "Critical";
+}
+else if (coolantTemp > 200)
+{
+    health = "Warning";
+}
+else
+{
+    health = "OK";
+}
+
+Console.WriteLine($"=== {AppName} ===\n{unitName} @ {site}\nCoolant: {coolantTemp:F1} °F | Oil Pressure: {oilPressure} psi | Running: {isRunning}" );
+Console.WriteLine($"Health: {health}");
 Console.Write("Enter new temperature: ");
 
 string input = Console.ReadLine() ?? "";
 double newTemp = double.Parse(input);
 
-double change = newTemp - temperature;
+double change = newTemp - coolantTemp;
 
-temperature = newTemp;
+coolantTemp = newTemp;
 
-Console.WriteLine($"{unitName} temperature changed by {change:+0.0;-0.0} °F (now {temperature:F1} °F)");
+Console.WriteLine($"{unitName} temperature changed by {change:+0.0;-0.0} °F (now {coolantTemp:F1} °F)");
