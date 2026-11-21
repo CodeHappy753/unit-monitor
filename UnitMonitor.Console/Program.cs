@@ -17,6 +17,10 @@ int ratedKw = 2000;
 
 bool isRunning = powerKw >= 100;
 
+bool cbClosed = true;
+
+string cbText = cbClosed ? "CB Closed" : "CB Open";
+
 int minutesSinceLastReading = 1;
 
 string connection = minutesSinceLastReading switch
